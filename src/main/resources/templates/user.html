@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello user</title>
+</head>
+<body>
+<h2>User</h2>
+<table border="1">
+    <tr>
+        <th>Iq</th>
+        <th>Name</th>
+        <th>Age</th>
+
+    </tr>
+    <tr>
+        <td th:utext="${user.id}">id</td>
+        <td th:utext="${user.name}">name</td>
+        <td th:utext="${user.age}">age</td>
+    </tr>
+</table>
+<br>
+<br>
+<br>
+<br>
+<a th:href="@{/logout}">Logout</a>
+</body>
+</html>

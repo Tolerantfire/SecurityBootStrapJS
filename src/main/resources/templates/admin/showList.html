@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+<br/>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Username</th>
+        <th>Roles</th>
+
+    </tr>
+    <tr th:each="User, state : ${currentUsers}" class="row" th:classappend="${state.odd} ? 'odd-row' : 'even-row'">
+
+        <td th:utext="${User.getId()}">ID</td>
+        <td th:utext="${User.getName()}">Name</td>
+        <td th:utext="${User.getAge()}">Age</td>
+        <td th:utext="${User.getUsername()}">Username</td>
+        <td th:utext="${User.getAuthorities()}">Roles</td>
+        <td><a th:href="@{/admin/edit/{id}(id=${User.id})}">Edit</a></td>
+        <td><a th:href="@{/admin/deleteUser/{id}(id=${User.id})}">Delete</a></td>
+        <td><a th:href="@{/user/{id}(id=${User.id})}">User Page</a></td>
+    </tr>
+</table>
+
+<br/>
+<p><a href="/admin/add">Add user</a></p>
+
+<a th:href="@{/logout}">Logout</a>
+
+</body>
+</html>
