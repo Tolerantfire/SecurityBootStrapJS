@@ -1,5 +1,6 @@
 package boot.crud.securityBoot.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -14,7 +15,9 @@ public class Role implements GrantedAuthority {
     private int id;
     @Column(name = "name")
     private String name;
+
     @ManyToMany(mappedBy = "roles")
+    @JsonBackReference
     private Set <User> users;
 
     public Role() {
@@ -48,6 +51,7 @@ public class Role implements GrantedAuthority {
                 "id=" + id +
                 ", name='" + name + '\''+'}';
     }
+
 
     @Override
     public String getAuthority() {

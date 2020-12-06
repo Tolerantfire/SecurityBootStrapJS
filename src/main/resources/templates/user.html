@@ -2,27 +2,69 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Hello user</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript" src="webjars/jquery/3.5.1/jquery.js"></script>
+    <script type="text/javascript" src="webjars/bootstrap/4.5.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="webjars/bootstrap/4.5.3/css/bootstrap.css"/>
+    <style>
+        .topCap {
+            caption-side: top;
+        }
+    </style>
+    <title>user</title>
 </head>
 <body>
-<h2>User</h2>
-<table border="1">
-    <tr>
-        <th>Iq</th>
-        <th>Name</th>
-        <th>Age</th>
 
-    </tr>
-    <tr>
-        <td th:utext="${user.id}">id</td>
-        <td th:utext="${user.name}">name</td>
-        <td th:utext="${user.age}">age</td>
-    </tr>
-</table>
-<br>
-<br>
-<br>
-<br>
-<a th:href="@{/logout}">Logout</a>
+<div class="container-fluid">
+    <nav class="navbar navbar-dark bg-dark">
+        <div th:utext="${user.email +' with roles ' +roleAdmin+' '+roleUser}" class="text-light"></div>
+        <a th:href="@{/logout}" class="text-secondary">Logout</a>
+    </nav>
+
+    <div class="row align-items-start">
+        <div class="col-1">
+            <nav class="nav flex-column">
+                <!-- <a class="nav-link active" th:href="@{/admin}">Admin</a>-->
+                <a class="nav-link" th:href="@{/user}">User</a>
+            </nav>
+        </div>
+        <div class="col-11">
+            <h1>User-information page</h1>
+
+            <div class="card">
+                <div class="card-header font-weight-bold">
+                    About user
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>Iq</th>
+                            <th>Name</th>
+                            <th>Last name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Roles</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td th:utext="${user.id}">id</td>
+                            <td th:utext="${user.name}">name</td>
+                            <td th:utext="${user.lastname}">Last Name</td>
+                            <td th:utext="${user.age}">age</td>
+                            <td th:utext="${user.email}">Email</td>
+                            <td th:utext="${user.getShortRoles()}">Roles</td>
+                        </tr>
+                    </table>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

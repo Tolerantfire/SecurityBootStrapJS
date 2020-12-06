@@ -16,6 +16,7 @@ public interface UserDao {
     void editUser(User user);
 
     User findByUsername(String username);
+    User findByEmail(String email);
 
     void addUserByAdmin(User user);
 

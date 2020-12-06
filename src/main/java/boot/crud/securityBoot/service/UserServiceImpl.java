@@ -47,6 +47,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User findByEmail(String email) {
+        return userDAO.findByEmail(email);
+    }
+
+    @Override
     public void addUserByAdmin(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDAO.addUserByAdmin(user);

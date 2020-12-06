@@ -65,6 +65,16 @@ public class UserDaoImpl implements UserDao {
         System.out.println("User с именем " + user.getName() + "и ролями" + user.getAuthorities() + "получен из базы");
         return user;
     }
+    @Override
+    public User findByEmail (String email) {
+        System.out.println("вошли в метод findByEmail");
+        User user = (User) entityManager
+                .createQuery("select u from User u where u.email like :email")
+                .setParameter("email", email)
+                .getSingleResult();
+        System.out.println("User с именем " + user.getName() + "и ролями" + user.getAuthorities() + "получен из базы");
+        return user;
+    }
 
     @Override
     public User getById(int id) {

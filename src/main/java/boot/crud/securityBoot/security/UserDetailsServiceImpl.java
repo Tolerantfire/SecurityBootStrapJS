@@ -23,11 +23,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         System.out.println("Вошли в метод loadUserByUsername");
-        User user = userDAO.findByUsername(username);
+        User user = userDAO.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("User %s not found", username));
+            throw new UsernameNotFoundException(String.format("User %s not found", email));
         }
         System.out.println(user);
         return  user;

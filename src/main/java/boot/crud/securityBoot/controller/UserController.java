@@ -3,6 +3,8 @@ package boot.crud.securityBoot.controller;
 
 import boot.crud.securityBoot.model.User;
 import boot.crud.securityBoot.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -25,6 +27,17 @@ public class UserController {
 
     @GetMapping(value = "/user")
     public String UserPage(ModelMap model, Principal principal) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.getAuthorities().toString().contains("ROLE_ADMIN")) {
+            model.addAttribute("roleAdmin", "ADMIN");
+        } else {
+            model.addAttribute("roleAdmin", "");
+        }
+        if (authentication.getAuthorities().toString().contains("ROLE_USER")) {
+            model.addAttribute("roleUser", "USER");
+        } else {
+            model.addAttribute("roleUser", "");
+        }
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);
         return "user";
@@ -32,6 +45,7 @@ public class UserController {
 
     @GetMapping(value = "user/{id}")
     public String ShowUser(@PathVariable("id") int id, Model model) {
+
         User user = userService.getById(id);
         model.addAttribute("user", user);
         return "user";
@@ -57,7 +71,7 @@ public class UserController {
 
     @GetMapping()
     public String welcome(Model model) {
-       return "hello";
+        return "hello";
     }
 
     @GetMapping(value = "/failure")
@@ -65,4 +79,4 @@ public class UserController {
         return "failure";
     }
 
-  }
+}

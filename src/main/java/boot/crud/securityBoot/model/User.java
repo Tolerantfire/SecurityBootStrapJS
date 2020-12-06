@@ -1,11 +1,13 @@
 package boot.crud.securityBoot.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,7 +25,29 @@ public class User implements UserDetails {
     private String password;
     @Column(name = "username")
     private String username;
+    @Column(name = "lastname")
+    private String lastname;
+    @Column(name = "email")
+    private String email;
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @ManyToMany(fetch = FetchType.EAGER)
+    @JsonManagedReference
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
@@ -116,4 +140,16 @@ public class User implements UserDetails {
                 ", roles=" + roles +
                 '}';
     }
+
+    public Set<String> getShortRoles (){
+        Set <String> set = new HashSet<>();
+        if (this.getRoles().toString().contains("ROLE_ADMIN")){
+            set.add("ADMIN");
+        }
+        if (this.getRoles().toString().contains("ROLE_USER")){
+            set.add("USER");
+        }
+        return set;
+    }
+
 }
