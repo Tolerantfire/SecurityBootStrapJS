@@ -45,6 +45,7 @@ public class AdminController {
         return "admin/showList";
     }
 
+
     @GetMapping(value = "add")
     public String newUser(Model model) {
         model.addAttribute("currentUsers", userService.queryForUser());
@@ -56,7 +57,7 @@ public class AdminController {
 
     @PostMapping(value = "add")
     public String addUser(@ModelAttribute("User") User user, @RequestParam List<String> SelectedSortOrderOptions) {
-        Set<Role> roles = new HashSet<>();
+        List<Role> roles = new ArrayList<>();
         if (SelectedSortOrderOptions.contains("User")) {
             roles.add(roleService.getById(2));
             user.setRoles(roles);
@@ -71,7 +72,7 @@ public class AdminController {
 
     @RequestMapping(value = "/edit", method = {RequestMethod.POST, RequestMethod.GET})
     public String update(User user, @RequestParam List<String> SelectedSortOrderOptions) {
-        Set<Role> roles = new HashSet<>();
+        List<Role> roles = new ArrayList<>();
         if (SelectedSortOrderOptions.contains("User")) {
             roles.add(roleService.getById(2));
             user.setRoles(roles);

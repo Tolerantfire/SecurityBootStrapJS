@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,8 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
+
+
     public String getLastname() {
         return lastname;
     }
@@ -46,10 +49,9 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private List<Role> roles;
 
     public User() {
     }
@@ -101,11 +103,11 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
@@ -141,7 +143,7 @@ public class User implements UserDetails {
                 '}';
     }
 
-    public Set<String> getShortRoles (){
+    /*private Set<String> getShortRoles (){
         Set <String> set = new HashSet<>();
         if (this.getRoles().toString().contains("ROLE_ADMIN")){
             set.add("ADMIN");
@@ -150,6 +152,6 @@ public class User implements UserDetails {
             set.add("USER");
         }
         return set;
-    }
+    }*/
 
 }

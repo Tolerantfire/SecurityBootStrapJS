@@ -37,34 +37,28 @@
                 </div>
 
                 <div class="card-body">
-                    <table class="table table-hover table-striped">
+                    <table id="output" class="table table-hover table-striped">
                         <thead>
                         <tr>
-                            <th>Iq</th>
-                            <th>Name</th>
-                            <th>Last name</th>
-                            <th>Age</th>
-                            <th>Email</th>
-                            <th>Roles</th>
+                            <th >Id</th>
+                            <th >Name</th>
+                            <th >Last name</th>
+                            <th >Age</th>
+                            <th >Email</th>
+                            <th >Username</th>
+                            <th >Roles</th>
 
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td th:utext="${user.id}">id</td>
-                            <td th:utext="${user.name}">name</td>
-                            <td th:utext="${user.lastname}">Last Name</td>
-                            <td th:utext="${user.age}">age</td>
-                            <td th:utext="${user.email}">Email</td>
-                            <td th:utext="${user.getShortRoles()}">Roles</td>
-                        </tr>
-                    </table>
+
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<script src="../static/Custom.js" th:src=@{/Custom.js}></script>
 </body>
 </html>

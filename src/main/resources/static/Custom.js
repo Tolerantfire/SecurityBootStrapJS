@@ -1,28 +1,51 @@
 $(document).ready(function () {
 
-    $(".table .btn-primary").on('click', function (event) {
+    getTable();
 
-        event.preventDefault();
+});
 
+function getTable() {
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8080/api/user',
+        contentType: 'application/json;',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        dataType: 'JSON',
 
-        var href = $(this).attr('href');
-
-        $.get(href, function (User, status) {
-            $('.modal #id').val(User.id);
-            $('.modal #name').val(User.name);
-            $('.modal #lastname').val(User.lastname);
-            $('.modal #age').val(User.age);
-            $('.modal #email').val(User.email);
-            $('.modal #username').val(User.username);
-            $('.modal #password').val(User.password);
-
-        });
-
-        $('#editModal').modal();
-
-    });
-
-})
+        success: function (data) {
 
 
 
+            let htmlTable = "";
+
+
+                let json = JSON.stringify(data);
+                let str;
+                if (json.includes("ADMIN")&json.includes("USER")){
+                    str ="ADMIN, USER";
+                }
+                if (json.includes("USER")&!json.includes("ADMIN")){
+                    str ="USER";
+                }
+                if (!json.includes("USER")&json.includes("ADMIN")){
+                    str ="ADMIN";
+                }
+
+                htmlTable += `<tr id = "list" valign="center">
+                        <td id = "tableId" >${data.id}</td>
+                        <td id = "tableName">${data.name}</td>
+                        <td id = "tableLastname" >${data.lastname}</td>
+                        <td id = "tableAge" >${data.age}</td>
+                        <td id = "tableEmail" >${data.email}</td>
+                        <td id = "tableUsername" >${data.username}</td>
+                        <td id = "tableRole" >${str}</td>
+                        </tr>`;
+
+            $("#output #list").remove();
+            $("#output thead").after(htmlTable);
+        }
+    })
+}
